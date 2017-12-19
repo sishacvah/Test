@@ -1,0 +1,142 @@
+body {
+    
+    background-image: repeating-radial-gradient(#fad2fa, #d2d2fa);
+}
+h1 {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+    color: rgba(201, 180, 193, 0.8);
+}
+
+#h1Score {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+    color: rgba(156, 95, 121, 1);
+}
+
+h4 {
+	text-align: center;
+	font-family: "Lucida Sans Unicode";
+}
+
+img {
+	
+	display: flex;
+	margin: auto;
+    width: 100%;
+    padding: 5px;
+
+
+}
+
+.answers {
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+}
+
+#main {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	position: relative;
+	display: flex;
+  	justify-content: center;
+	flex-direction: column;
+	width:100%;
+	min-width: 650px;
+	max-width: 650px;
+	border-radius: 2px;
+	padding: 25px 25px 24px;
+	background-color: #fff;
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.5);
+	vertical-align: baseline;
+
+}
+
+#answer1 {
+	background-color: #fffafa;
+	padding: 15px;
+	display: flex;
+	cursor: pointer;
+	border-top: 1px solid #e6e6e6;
+}
+
+#answer2 {
+	background-color: #fffafa;
+	padding: 15px;
+	display: flex;
+	cursor: pointer;
+	border-top: 1px solid #e6e6e6;
+}
+
+#answer3 {
+	background-color: #fffafa;
+	padding: 15px;
+	display: flex;
+	cursor: pointer;
+	border-top: 1px solid #e6e6e6;
+}
+
+#answer4 {
+	background-color: #fffafa;
+	padding: 15px;
+	display: flex;
+	cursor: pointer;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+button {
+	margin-top: 5px;
+	padding: 5px;
+	display: block;
+	text-align: center;
+}
+
+p {
+	cursor: pointer;
+	font-family: "Lucida Sans Unicode";
+}
+
+#results {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	position: relative;
+	display: flex;
+  	justify-content: center;
+	flex-direction: column;
+	width:100%;
+	min-width: 650px;
+	max-width: 650px;
+	border-radius: 2px;
+	padding: 25px 25px 24px;
+	background-color: #fff;
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.5);
+	vertical-align: baseline;
+}
+
+#welcome {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	position: relative;
+	display: flex;
+  	justify-content: center;
+	flex-direction: column;
+	width:100%;
+	min-width: 650px;
+	max-width: 650px;
+	border-radius: 2px;
+	padding: 25px 25px 24px;
+	background-color: #fff;
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.5);
+	vertical-align: baseline;
+}
+
+

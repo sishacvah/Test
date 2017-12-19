@@ -9,6 +9,14 @@ h1 {
     color: rgba(201, 180, 193, 0.8);
 }
 
+h2 {
+	display: flex;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+    color: rgba(43, 89, 77, 0.8);
+}
+
 #h1Score {
 	text-align: center;
 	margin-left: auto;
@@ -137,6 +145,11 @@ p {
 	background-color: #fff;
 	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.5);
 	vertical-align: baseline;
+}
+
+#credits {
+	font-size: 13px;
+	font-style: italic;
 }
 
 

@@ -38,9 +38,9 @@
 	
 
 	<script type="text/javascript">
-
+		//Переменная для счета
 		var score = 0;
-		
+		//Захватываем DOM объекты
 		var btn = document.getElementById("submit");
 		var quest = document.getElementById("question");
 		var image = document.getElementById("image");
@@ -56,32 +56,37 @@
 		var answer2 = document.getElementById("answer2");
 		var answer3 = document.getElementById("answer3");
 		var answer4 = document.getElementById("answer4");
-
+		//Счетчик вопросов
 		var topHeader = document.getElementById("topHeader");
 		var topHeaderCount = 1;
-
+		//Флаги ответ выбран, комментарий показан
 		var answerSelected = false;
 		var commentExists = false;
-
+		//Переменные для комментария
 		var comment;
 		var commentText;
-
+		//Авторы
 		var creditsText = "Придумали и сделали: Анна Кострова, Алена Каширова, Катя Логинова, Александр Головин. ИТМО, Научная коммуникация, 2017";
-
+		//Приветственные параграфы 1, 2 и 3
 		var welcomeMessage1 = "В ноябре этого года сборная Университета ИТМО завоевала 'золото' на Всемирной олимпиаде роботов (WRO) в Коста-Рике. В составе команды было всего три человека и все они - петербургские школьники!";
 
 		var welcomeMessage2 = "Ребята уже несколько лет занимаются в творческой лаборатории робототехники при мегафакультете компьютерных технологий и управления ИТМО. За это время они приняли участие в нескольких соревнованиях и смогли достигнуть впечатляющих результатов.";
 
 		var welcomeMessage3 = "Учитывая повсеместную роботизацию многих профессий, давайте попробуем разобраться в теме. Возможно, вам захочется узнать, кто заменит вас в будущем на рабочем месте :) Давайте проверим, сможете ли вы по картинкам угадать, кем работают эти роботы.";
-
+		//Текст для результатов, три варианта
 		var resultsMessageLow = "Ваши знания на начальном уровне. Советуем Вам окунуться в мир робототехники с головой и разобраться в теме. Ведь роботизация шагает по планете семимильными шагами!";
 		var resultsMessageMedium = "Ваши знания на достаточном уровне. Советуем Вам глубже погрузиться в сферу и узнать о роботах чуть больше. Ведь они такие замечательные и интересные!";
 		var resultsMessageHigh = "Поздравляем с высшим результатом! Вы специалист по роботам и серьезно разбираетесь в теме. Остаться без рабочего места вам не грозит!";
-
+		//Надпись рядом с финальным счетом, три варианта
 		var resultsProcentMessageLow = "С таким результатом в мире грустит один робот!";
 		var resultsProcentMessageMedium = "Хорошо!";
 		var resultsProcentMessageHigh = "Отлично!";
-
+		//Список объектов (вопросы).
+		//text - текст вопроса
+		//answer1-4 - текст ответов
+		//correctAnswer - указание верного варианта (число)
+		//image - ссылка на изображение
+		//comment1-4 - индивидуальные комментарии на каждый ответ
 		var questions = [
 			{
 				text: "Начнём с cамого простого. Помните ли вы Валл-и? Какую работу он выполнял?",
@@ -215,81 +220,101 @@
 			},
 		];
 
+		//Счетчик 
 		var counter = 0;
+		//Всего вопросов
 		var total = questions.length -1;
 
-
+		//Флаг для отключения инвета при клике на ответ
 		answer1.setAttribute('isDisabled', false);
 		answer2.setAttribute('isDisabled', false);
 		answer3.setAttribute('isDisabled', false);
 		answer4.setAttribute('isDisabled', false);
-
+		//Флаг правильности
 		answer1.setAttribute('isCorrect', true);
 		answer2.setAttribute('isCorrect', false);
 		answer3.setAttribute('isCorrect', false);
 		answer4.setAttribute('isCorrect', false);
-
+		//Отключаем инпут на кнопке
 		btn.disabled = true;
 
+		//Запускаем приветствие
 		welcome();
 
-
+		//Запускается при клике на ответ, если не заблокирован инпут. Аргумент - параграф выбранного ответа.
 		function checkAnswer(answer) {
+			//проверка блока инпута (только для 1 ответа, так как они блокируются все разом)
 			if (!answer1.isDisabled){
+				//флаг, что ответ выбран
 				answerSelected = true;
-
+				//Выключаем инпут
 				toogleInput();
+				//Проверяем правильность
 				if (answer.getAttribute('isCorrect') == 'true') {
+					//увеличиваем счет и окрашиваем зеленым
 					score++;
 					answer.style.backgroundColor = '#00ee76';
 				} else {
+					//окаршиваем красным
 					answer.style.backgroundColor = '#fa8072';
 				}
+				//показываем комментарий
 				showComment(counter, answer);
+				//Увеличиваем счетчик
 				counter++;
+				//Включаем инпут кнопки "Дальше"
 				toogleButton();
 			}
-			
 		}
 
+		//Меняем вопрос на следующий
 		function changeQuestion() {
 			
-
+			//если вопросы не кончились
 			if (counter <= total){
-
+				//меняем тексты
 				changeText(counter);
-
+				//задаем правильный ответ
 				setCorrectAnswer(counter);
-			} else if (counter > total){
+			} 
+			//если вопросы кончились
+			else if (counter > total){
+				//показываем результат
 				showResults();
-				console.log("Начать сначала");
-				
 			}
+			//Выключаем выбранность ответа
 			answerSelected = false;
+			//Включаем инпут
 			toogleInput();
+			//Выключаем кнопку
 			toogleButton();
+			//Восстанавливаем цвета
 			resetColor(answer1);
 			resetColor(answer2);
 			resetColor(answer3);
 			resetColor(answer4);
-
+			//прокручиваем страницу наверх
 			window.scrollTo(0, 0);
 		}
 
+		//Меняем тексты везде. Аргумент - счетчик.
 		function changeText(counter) {
+			//Меняем изображение
 			image.src = questions[counter].image;
-
+			//Меняем текст вопроса
 			quest.innerHTML = questions[counter].text;
-
+			//Меняем текст ответов
 			firstAnswerText.innerHTML = questions[counter].answer1;
 			secondAnswerText.innerHTML = questions[counter].answer2;
 			thirdAnswerText.innerHTML = questions[counter].answer3;
 			forthAnswerText.innerHTML = questions[counter].answer4;
-
+			//Увеличиваем счет вопросов
 			topHeaderCount++;
+			//Меняем текст счета вопросов
 			topHeader.innerHTML = topHeaderCount + "/" + questions.length;
 		}
 
+		//Устанавливаем правильный ответ
 		function setCorrectAnswer(counter) {
 			if (questions[counter].corretAnswer == 1) {
 				answer1.setAttribute('isCorrect', true);
@@ -313,7 +338,7 @@
 				answer4.setAttribute('isCorrect', true);
 			}
 		}
-
+		//Вкл\выкл инпут на ответах
 		function toogleInput() {
 			if (!answer1.isDisabled){
 				answer1.isDisabled = true;
@@ -327,7 +352,7 @@
 				answer4.isDisabled = false;	
 			}
 		}
-
+		//Вкл\выкл инпут на кнопке
 		function toogleButton() {
 			if(!btn.disabled){
 				btn.disabled = true;
@@ -335,21 +360,21 @@
 				btn.disabled = false;
 			}
 		}
-
+		//подсвечиваем ответ при наведении курсора, если не заблокирован инпут
 		function highlight(answer) {
 			if (!answer.isDisabled){
 				answer.style.backgroundColor = '#eee9e9';
 			}
 		}
-
+		//Восстанавливаем цвет ответа, если он не выбран
 		function resetColor(answer) {
 			if (!answerSelected){
 				answer.style.backgroundColor = '#fffafa';
 			}
 		}
-
+		//Показываем комментарий. Аргументы - счетчик и параграф ответа.
 		function showComment(counter, answer){
-			
+			//Меняем текст вопроса на текст комментария
 			if (answer == answer1){
 				firstAnswerText.innerHTML = questions[counter].comment1;
 			} else if (answer == answer2) {
@@ -360,35 +385,52 @@
 				forthAnswerText.innerHTML = questions[counter].comment4;
 			}
 		}
-
+		//Показываем результат
 		function showResults() {
+			//Убираем контейнер теста
 			main.style.display = 'none';
+			//создаем контейнер результатов
 			var resultDiv = document.createElement("div");
+			//задаем ID
 			resultDiv.setAttribute("id", "results");
+			//создаем картинку для результатов
 			var resultImg = document.createElement("img");
-			//if score > ...
 			
+			//создаем параграф для авторов
 			var credit = document.createElement("p");
 			credit.setAttribute("id", "credits");
+
+			//Параграф для текста результата
 			var resultText = document.createElement("p");
+			//Хэдер для счета
 			var resultScore = document.createElement("h1");
 			resultScore.setAttribute("id", "h1Score");
+			//Кнопка "начать сначала"
 			var resultButton = document.createElement("button");
+			//Переменные для текстов внутри элементов
 			var resultTextContent;
 			var resultScoreContent;
+			//Хэдер для подписи к набранному счету
 			var resultScoreParagraph = document.createElement("h2");
 			var resultScoreParagraphText;
 			var creditsTextContent = document.createTextNode(creditsText);
 
+			//переводим счет в проценты, вводим небольшую случайность
 			var finalScore = score * 10;
 			if (finalScore < 100) {
+				//+0..+5%
 				finalScore += Math.floor(Math.random()*5);
 			}
 
+			//Проверяем счет, три варианта результатов
 			if (finalScore <= 33) {
+				//меняем картинку
 				resultImg.src = "img/win1.jpg";
+				//добавляем текст
 				resultTextContent = document.createTextNode(resultsMessageLow);
+				//добавляем счет
 				resultScoreContent = document.createTextNode(finalScore + "%");
+				//Добавляем подпись к счету
 				resultScoreParagraphText = document.createTextNode(resultsProcentMessageLow)
 			} else if (finalScore > 33 && finalScore <= 66){
 				resultImg.src = "img/win2.jpg";
@@ -401,14 +443,16 @@
 				resultScoreContent = document.createTextNode(finalScore + "%");
 				resultScoreParagraphText = document.createTextNode(resultsProcentMessageHigh)
 			}
-
+			//Текст кнопки
 			var resultButtonContent = document.createTextNode("Пройти еще раз");
+			//Прикрепляем всё.
 			resultButton.appendChild(resultButtonContent);
 			resultText.appendChild(resultTextContent);
 			resultScore.appendChild(resultScoreContent);
 			resultScoreParagraph.appendChild(resultScoreParagraphText);
 			credit.appendChild(creditsTextContent);
 
+			//Суем в body
 			document.body.appendChild(resultDiv);
 			resultDiv.appendChild(resultScore);
 			resultDiv.appendChild(resultScoreParagraph);
@@ -416,15 +460,17 @@
 			resultDiv.appendChild(resultText);
 			resultDiv.appendChild(resultButton);
 			resultDiv.appendChild(credit);
-
+			//Добавляем ивент на кнопку
 			resultButton.addEventListener("click", restartTest);
 		}
 
+		//Перезапуск теста
 		function restartTest() {
-			console.log("RESTART");
+			//Прокручиваем страницу наверх
 			window.scrollTo(0,0);
+			//Включаем контейнер теста
 			main.style.display = "flex";
-			
+			//Выключаем\удаляем контейнер приветствия\результатов, если есть.
 			if (document.getElementById("results")) {
 				document.body.removeChild(results);
 			}
@@ -432,7 +478,7 @@
 			if (document.getElementById("welcome")) {
 				document.getElementById("welcome").style.display = "none";
 			}
-
+			//обнуляем счетчик и очки, меняем тексты, назначаем правильный ответ
 			counter = 0;
 			changeText(counter);
 			score = 0;
@@ -440,16 +486,18 @@
 			topHeaderCount = 1;
 			topHeader.innerHTML = topHeaderCount + "/" + questions.length;
 		}
-
+		//Начальный экран
 		function welcome() {
+			//Прячем контейнер теста
 			main.style.display = 'none';
+			//создаем контейнер приветствия
 			var welcomeDiv = document.createElement("div");
 			welcomeDiv.setAttribute("id", "welcome");
-
+			//создаем картинку приветствия
 			var welcomeImg = document.createElement("img");
 			welcomeImg.src = "img/welcome1.jpg";
 
-
+			//Создаем все элементы и тексты к ним
 			var welcomeHeader = document.createElement("h2");
 			var welcomeText1 = document.createElement("p");
 			var welcomeText2 = document.createElement("p");
@@ -459,8 +507,9 @@
 			var welcomeTextContent1 = document.createTextNode(welcomeMessage1);
 			var welcomeTextContent2 = document.createTextNode(welcomeMessage2);
 			var welcomeTextContent3 = document.createTextNode(welcomeMessage3);
-			
 			var welcomeButtonContent = document.createTextNode("Начать тест");
+
+			//Прикрепляем всё.
 			welcomeButton.appendChild(welcomeButtonContent);
 			welcomeHeader.appendChild(welcomeHeaderText);
 			welcomeText1.appendChild(welcomeTextContent1);
@@ -468,7 +517,7 @@
 			welcomeText3.appendChild(welcomeTextContent3);
 			
 			
-
+			//Суем в body
 			document.body.appendChild(welcomeDiv);
 			welcomeDiv.appendChild(welcomeHeader);
 			welcomeDiv.appendChild(welcomeText1);
@@ -476,7 +525,7 @@
 			welcomeDiv.appendChild(welcomeText2);
 			welcomeDiv.appendChild(welcomeText3);
 			welcomeDiv.appendChild(welcomeButton);
-
+			//Добавляем ивент на кнопку
 			welcomeButton.addEventListener("click", restartTest);
 		}
 
